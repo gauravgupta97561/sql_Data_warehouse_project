@@ -1,0 +1,86 @@
+/**********************************************************************************************
+-- Script Name     : create_bronze_table.sql
+-- Script Purpose  : This script creates six foundational tables under the 'bronze' schema
+                     in the DataWarehouse database. These tables are used for storing
+                     raw/ingested data before transformation.
+--
+-- Tables Created  :
+--   1. bronze.crm_cust_info
+--   2. bronze.crm_prd_info
+--   3. bronze.crm_sales_details
+--   4. bronze.erp_cust_az12
+--   5. bronze.erp_loc_a101
+--   6. bronze.erp_px_cat_g1v2
+--
+-- ⚠ WARNING:
+-- This script will attempt to create tables and may fail if they already exist.
+-- Ensure that the target tables do not exist, or modify the script to handle existence checks.
+**********************************************************************************************/
+
+
+BEGIN
+    -- CRM Customer Info
+    CREATE TABLE [bronze].[crm_cust_info] (
+        cst_id              INT             NULL,
+        cst_key             NVARCHAR(50)    NULL,
+        cst_firstname       NVARCHAR(50)    NULL,
+        cst_lastname        NVARCHAR(50)    NULL,
+        cst_maratial_status NVARCHAR(50)    NULL,
+        cst_gndr            NVARCHAR(50)    NULL,
+        cst_create_date     DATE            NULL
+    );
+
+    -- CRM Product Info
+    CREATE TABLE [bronze].[crm_prd_info] (
+        prd_id        INT             NULL,
+        prd_key       NVARCHAR(50)    NULL,
+        prd_nm        NVARCHAR(50)    NULL,
+        prd_cost      INT             NULL,
+        prd_line      NVARCHAR(50)    NULL,
+        prd_start_dt  DATE            NULL,
+        prd_end_dt    DATE            NULL
+    );
+
+    -- CRM Sales Details
+    CREATE TABLE [bronze].[crm_sales_details] (
+        sls_ord_num   NVARCHAR(50)    NULL,
+        sls_prd_key   NVARCHAR(50)    NULL,
+        sls_cust_id   INT             NULL,
+        sls_order_dt  INT             NULL,
+        sls_ship_dt   INT             NULL,
+        sls_due_dt    INT             NULL,
+        sla_slaes     INT             NULL,
+        sls_quantity  INT             NULL,
+        sls_price     INT             NULL
+    );
+
+    -- ERP Customer AZ12
+    CREATE TABLE [bronze].[erp_cust_az12] (
+        erp_id       INT             NULL,
+        erp_name     NVARCHAR(50)    NULL,
+        erp_type     NVARCHAR(50)    NULL,
+        erp_city     NVARCHAR(50)    NULL,
+        erp_country  NVARCHAR(50)    NULL
+    );
+
+    -- ERP Location A101
+    CREATE TABLE [bronze].[erp_loc_a101] (
+        loc_id     INT             NULL,
+        loc_name   NVARCHAR(50)    NULL,
+        loc_type   NVARCHAR(50)    NULL,
+        loc_city   NVARCHAR(50)    NULL,
+        loc_zone   NVARCHAR(50)    NULL
+    );
+
+    -- ERP Product Category G1V2
+    CREATE TABLE [bronze].[erp_px_cat_g1v2] (
+        px_id      INT             NULL,
+        px_cat     NVARCHAR(50)    NULL,
+        px_code    NVARCHAR(50)    NULL,
+        px_group   NVARCHAR(50)    NULL
+    );
+END;
+GO
+
+-- Optional: Execute the procedure to create all tables
+-- EXEC usp_create_bronze_tables;
